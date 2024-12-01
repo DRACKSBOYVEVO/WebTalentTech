@@ -20,3 +20,220 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+}
+
+/* Header */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 10px 20px;
+  color: white;
+}
+
+.header-container nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.header-container nav a:hover {
+  background-color: #007bff;
+}
+
+/* Banner */
+.banner-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.banner-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.banner-btn:hover {
+  background: #007bff;
+}
+
+.banner-btn.prev {
+  left: 10px;
+}
+
+.banner-btn.next {
+  right: 10px;
+}
+
+/* Main Content */
+.content {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #1a1a1a;
+  color: white;
+}
+/* Reset básico */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Fondo con degradado */
+body {
+  background: linear-gradient(to bottom, #1e3c72, #2a5298, #000);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* Header */
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+header nav a:hover {
+  color: #00bcd4;
+}
+
+/* Formulario */
+#register-form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Título */
+#register-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px black;
+}
+
+/* Etiquetas */
+#register-form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 16px;
+}
+
+/* Campos */
+#register-form input,
+#register-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#register-form input:hover,
+#register-form select:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#register-form input:focus,
+#register-form select:focus {
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px #00bcd4;
+}
+
+/* Botón */
+#register-form .btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background: #84cfd8;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#register-form .btn:hover {
+  background: #008c9e;
+  transform: scale(1.05);
+}
+
+#register-form .btn:active {
+  transform: scale(0.98);
+}
