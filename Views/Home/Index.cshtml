@@ -2,29 +2,83 @@
     ViewData["Title"] = "Inicio - Proyecto Talent Tech";
 }
 
-<!-- Banner Interactivo -->
 <section class="banner">
-    <div class="banner-container">
-        <button class="banner-btn prev">&lt;</button>
-        <div class="slides">
-            <div class="slide active">
-                <img src="zoro.jpg" alt="Imagen 1">
-                <div class="caption">Texto de Ejemplo 1</div>
-            </div>
-            <div class="slide">
-                <img src="zoro2.jpg" alt="Imagen 2">
-                <div class="caption">Texto de Ejemplo 2</div>
-            </div>
-            <div class="slide">
-                <img src="zoro3.jpg" alt="Imagen 3">
-                <div class="caption">Texto de Ejemplo 3</div>
-            </div>
+    <div class="banner-content">
+        <!-- Contenido del texto -->
+        <div class="text-container">
+            <h2 class="text-black">Festival de Navidad Medellín Te Quiere</h2>
+            <p class="text-body">
+                La Navidad en nuestra ciudad es algo especial. Es una celebración que va más allá de las luces que llenan de magia
+                cada rincón de la ciudad. Es una época en la que nos reencontramos.
+            </p>
+            <button class="btn btn-sm fw-bold btn-primary" type="submit">CONOCE MÁS</button>
         </div>
-        <button class="banner-btn next">&gt;</button>
+
+        <!-- Carrusel de imágenes -->
+        <div class="image-container">
+            <img src="~/img/canchas_medellin_1280x850.png" alt="Canchas de Medellín" />
+        </div>
+
+        <div class="image-container">
+            <img src="~/img/ciclismo_montaña_1280x850.png" alt="Ciclismo de montaña en Medellín" />
+        </div>
+
+        <div class="image-container">
+            <img src="~/img/cultura_viva_1280x850.png" alt="Cultura viva en Medellín" />
+        </div>
+
+        <div class="image-container">
+            <img src="~/img/escaleras_colores_1280x850.png" alt="Escaleras de colores en Medellín" />
+        </div>
+
+        <div class="image-container">
+            <img src="~/img/teleferico_medellin_1280x850.png" alt="Teleférico de Medellín" />
+        </div>
+
+        <div class="image-container">
+            <img src="~/img/vista_urbana_1280x850.png" alt="Vista urbana de Medellín" />
+        </div>
+    </div>
+
+    <!-- Paginación del carrusel -->
+    <div class="pagination">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
     </div>
 </section>
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido a Nuestro Proyecto</h1>
-    <p>Explora nuestras opciones de educación y participa activamente.</p>
-</div>
+<section class="info-section">
+    <div class="container">
+        <nav class="info-nav">
+            <ul>
+                <li><a href="#">Talleres y Cursos</a></li>
+                <li><a href="#">Eventos Culturales</a></li>
+                <li><a href="#">Actividades Deportivas</a></li>
+                <li><a href="#">Programas Comunitarios</a></li>
+                <li><a href="#">Espacios Recreativos</a></li>
+            </ul>
+        </nav>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="~/img/deporte_playa_corredores600x200.png" alt="Personas corriendo en la playa" />
+                <h3>Actividades Deportivas en la Playa</h3>
+                <p>Disfruta de diversas actividades al aire libre en nuestras hermosas playas locales.</p>
+            </div>
+            <div class="card">
+                <img src="~/img/exploradores_bosque600x200.png" alt="Exploradores en el bosque" />
+                <h3>Exploración en la Naturaleza</h3>
+                <p>Únete a grupos de exploradores y descubre la biodiversidad de nuestros bosques.</p>
+            </div>
+            <div class="card">
+                <img src="~/img/niño_jugando_cuarto_calido600x200.png" alt="Niño jugando en un cuarto cálido" />
+                <h3>Actividades para Niños en Espacios Acogedores</h3>
+                <p>Ofrecemos talleres y juegos en ambientes seguros y confortables para los más pequeños.</p>
+            </div>
+        </div>
+    </div>
+</section>
