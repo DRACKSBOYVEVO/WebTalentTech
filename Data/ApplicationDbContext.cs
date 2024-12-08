@@ -11,11 +11,11 @@ namespace Web.Data
         {
         }
 
-        DbSet<Barrio> Barrios { get; set; }
-        DbSet<Comuna> Comunas { get; set; }
-        DbSet<Departamento> Departamentos { get; set; }
-        DbSet<Encuesta> Encuestas { get; set; }
-        DbSet<LiderSocial> LiderSocials { get; set; }
-        DbSet<Voto> Votos { get; set; }
+        public DbSet<Barrio> Barrios { get; set; }
+        public DbSet<Comuna> Comunas { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Encuesta> Encuestas { get; set; }
+        public DbSet<LiderSocial> LiderSocials { get; set; }
+        public DbSet<Voto> Votos { get; set; }
     }
 }
