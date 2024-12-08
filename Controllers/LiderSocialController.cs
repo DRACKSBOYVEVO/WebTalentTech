@@ -6,18 +6,18 @@ using Web.Models;
 
 namespace Web.Controllers;
 
-public class LideresSocialesController(ApplicationDbContext context) : Controller
+public class LiderSocialController(ApplicationDbContext context) : Controller
 {
     private readonly ApplicationDbContext _context = context;
 
-    // GET: LideresSociales
+    // GET: LiderSocial
     public async Task<IActionResult> Index()
     {
-        var applicationDbContext = _context.LiderSocials.Include(l => l.Barrio);
+        var applicationDbContext = _context.LiderSocials.Include(l => l.Barrio).Include(l => l.Ciudad);
         return View(await applicationDbContext.ToListAsync());
     }
 
-    // GET: LideresSociales/Details/5
+    // GET: LiderSocial/Details/5
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -27,6 +27,7 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
 
         var liderSocial = await _context.LiderSocials
             .Include(l => l.Barrio)
+            .Include(l => l.Ciudad)
             .FirstOrDefaultAsync(m => m.LiderSocialId == id);
         if (liderSocial == null)
         {
@@ -36,19 +37,20 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
         return View(liderSocial);
     }
 
-    // GET: LideresSociales/Create
+    // GET: LiderSocial/Create
     public IActionResult Create()
     {
         ViewData["BarrioId"] = new SelectList(_context.Barrios, "BarrioId", "Nombre");
+        ViewData["CiudadId"] = new SelectList(_context.Ciudades, "CiudadId", "Nombre");
         return View();
     }
 
-    // POST: LideresSociales/Create
+    // POST: LiderSocial/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("LiderSocialId,Nombre,BarrioId")] LiderSocial liderSocial)
+    public async Task<IActionResult> Create([Bind("LiderSocialId,Nombre,BarrioId,CiudadId")] LiderSocial liderSocial)
     {
         if (ModelState.IsValid)
         {
@@ -57,10 +59,11 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
             return RedirectToAction(nameof(Index));
         }
         ViewData["BarrioId"] = new SelectList(_context.Barrios, "BarrioId", "Nombre", liderSocial.BarrioId);
+        ViewData["CiudadId"] = new SelectList(_context.Ciudades, "CiudadId", "Nombre", liderSocial.CiudadId);
         return View(liderSocial);
     }
 
-    // GET: LideresSociales/Edit/5
+    // GET: LiderSocial/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -74,15 +77,16 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
             return NotFound();
         }
         ViewData["BarrioId"] = new SelectList(_context.Barrios, "BarrioId", "Nombre", liderSocial.BarrioId);
+        ViewData["CiudadId"] = new SelectList(_context.Ciudades, "CiudadId", "Nombre", liderSocial.CiudadId);
         return View(liderSocial);
     }
 
-    // POST: LideresSociales/Edit/5
+    // POST: LiderSocial/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("LiderSocialId,Nombre,BarrioId")] LiderSocial liderSocial)
+    public async Task<IActionResult> Edit(int id, [Bind("LiderSocialId,Nombre,BarrioId,CiudadId")] LiderSocial liderSocial)
     {
         if (id != liderSocial.LiderSocialId)
         {
@@ -110,10 +114,11 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
             return RedirectToAction(nameof(Index));
         }
         ViewData["BarrioId"] = new SelectList(_context.Barrios, "BarrioId", "Nombre", liderSocial.BarrioId);
+        ViewData["CiudadId"] = new SelectList(_context.Ciudades, "CiudadId", "Nombre", liderSocial.CiudadId);
         return View(liderSocial);
     }
 
-    // GET: LideresSociales/Delete/5
+    // GET: LiderSocial/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -123,6 +128,7 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
 
         var liderSocial = await _context.LiderSocials
             .Include(l => l.Barrio)
+            .Include(l => l.Ciudad)
             .FirstOrDefaultAsync(m => m.LiderSocialId == id);
         if (liderSocial == null)
         {
@@ -132,7 +138,7 @@ public class LideresSocialesController(ApplicationDbContext context) : Controlle
         return View(liderSocial);
     }
 
-    // POST: LideresSociales/Delete/5
+    // POST: LiderSocial/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
