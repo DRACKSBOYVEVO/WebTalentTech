@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">TuVozLocal</a>
                 <button class="navbar-toggler" type="button" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -25,11 +25,26 @@
                             <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Home" asp-action="Votar">Votación</a>
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Votar" asp-action="Index">Votar</a>
                         </li>
-                        <li class="nav-item text-center mt-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Encuestas" asp-action="Index">Encuestas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="LideresSociales" asp-action="Index">L. social</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Barrios" asp-action="Index">Barrios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Comunas" asp-action="Index">Comunas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Departamentos" asp-action="Index">Departamentos</a>
+                        </li>
+                       @*  <li class="nav-item text-center mt-2">
                             <span class="nav-text">¡Únete a la comunidad!</span>
-                        </li>
+                        </li> *@
                         <!-- Agrega más elementos de menú si es necesario -->
                     </ul>
                     <partial name="_LoginPartial" />
@@ -46,14 +61,14 @@
 
     <footer class="footer text-center text-muted py-3">
         <div class="container d-flex justify-content-center align-items-center">
-            <span>&copy; 2024 - Proyecto Web Talent Tech</span>
-            <a href="/" class="ms-2 text-decoration-none">Inicio</a>
+            <span>&copy; 2024 - TuVozLocal</span>
+            <a asp-controller="Home" asp-action="Index" class="ms-2 text-decoration-none">Inicio</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/validate-form.min.js" asp-append-version="true"></script>
+    <script src="~/js/validate-form.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
