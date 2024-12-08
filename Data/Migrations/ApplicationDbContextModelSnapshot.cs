@@ -224,6 +224,132 @@ namespace Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Web.Models.Barrio", b =>
+                {
+                    b.Property<int>("BarrioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BarrioId"));
+
+                    b.Property<int>("ComunaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BarrioId");
+
+                    b.HasIndex("ComunaId");
+
+                    b.ToTable("Barrios");
+                });
+
+            modelBuilder.Entity("Web.Models.Comuna", b =>
+                {
+                    b.Property<int>("ComunaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComunaId"));
+
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ComunaId");
+
+                    b.HasIndex("DepartamentoId");
+
+                    b.ToTable("Comunas");
+                });
+
+            modelBuilder.Entity("Web.Models.Departamento", b =>
+                {
+                    b.Property<int>("DepartamentoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartamentoId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartamentoId");
+
+                    b.ToTable("Departamentos");
+                });
+
+            modelBuilder.Entity("Web.Models.Encuesta", b =>
+                {
+                    b.Property<int>("EncuestaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EncuestaId"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EncuestaId");
+
+                    b.ToTable("Encuestas");
+                });
+
+            modelBuilder.Entity("Web.Models.LiderSocial", b =>
+                {
+                    b.Property<int>("LiderSocialId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LiderSocialId"));
+
+                    b.Property<int>("BarrioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LiderSocialId");
+
+                    b.HasIndex("BarrioId");
+
+                    b.ToTable("LiderSocials");
+                });
+
+            modelBuilder.Entity("Web.Models.Voto", b =>
+                {
+                    b.Property<int>("VotoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VotoId"));
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaVoto")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LiderSocialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VotoId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.HasIndex("LiderSocialId");
+
+                    b.ToTable("Votos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -273,6 +399,73 @@ namespace Web.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Web.Models.Barrio", b =>
+                {
+                    b.HasOne("Web.Models.Comuna", "Comuna")
+                        .WithMany("Barrios")
+                        .HasForeignKey("ComunaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comuna");
+                });
+
+            modelBuilder.Entity("Web.Models.Comuna", b =>
+                {
+                    b.HasOne("Web.Models.Departamento", "Departamento")
+                        .WithMany("Comunas")
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departamento");
+                });
+
+            modelBuilder.Entity("Web.Models.LiderSocial", b =>
+                {
+                    b.HasOne("Web.Models.Barrio", "Barrio")
+                        .WithMany()
+                        .HasForeignKey("BarrioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Barrio");
+                });
+
+            modelBuilder.Entity("Web.Models.Voto", b =>
+                {
+                    b.HasOne("Web.Models.Encuesta", "Encuesta")
+                        .WithMany("Votos")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.LiderSocial", "LiderSocial")
+                        .WithMany()
+                        .HasForeignKey("LiderSocialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Encuesta");
+
+                    b.Navigation("LiderSocial");
+                });
+
+            modelBuilder.Entity("Web.Models.Comuna", b =>
+                {
+                    b.Navigation("Barrios");
+                });
+
+            modelBuilder.Entity("Web.Models.Departamento", b =>
+                {
+                    b.Navigation("Comunas");
+                });
+
+            modelBuilder.Entity("Web.Models.Encuesta", b =>
+                {
+                    b.Navigation("Votos");
                 });
 #pragma warning restore 612, 618
         }
