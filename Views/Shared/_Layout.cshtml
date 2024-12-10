@@ -14,7 +14,7 @@
     <header>
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-                <a class="navbar-brand fw-bold d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
                     <img src="~/img/icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top me-2">
                     TuVozLocal
                 </a>
@@ -30,30 +30,19 @@
                     <!-- Menú principal -->
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")">Inicio</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Ubicaciones
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Ciudades")">Ciudades</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Departamentos")">Departamentos</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Barrios")">Barrios</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Comunas")">Comunas</a></li>
-                            </ul>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark disabled" href="#" tabindex="-1" aria-disabled="true">Proyectos Sociales</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Proyectos Sociales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "LiderSocial")">Líder Social</a>
+                            <a class="nav-link text-dark" asp-controller="LiderSocial" asp-action="Index">Líder Social</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Encuestas")">Encuestas</a>
+                            <a class="nav-link text-dark" asp-controller="Encuestas" asp-action="Index">Encuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Votar")">Votación</a>
+                            <a class="nav-link text-dark" asp-controller="Votar" asp-action="Index">Votación</a>
                         </li>
                     </ul>
 
