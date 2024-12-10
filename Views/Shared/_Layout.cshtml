@@ -12,46 +12,60 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">TuVozLocal</a>
-                <button class="navbar-toggler" type="button" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                    <img src="~/img/icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top me-2">
+                    TuVozLocal
+                </a>
+
+                <!-- Botón Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                    
-                    <ul class="navbar-nav mx-auto">
+
+                <!-- Contenido Colapsable -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <!-- Menú principal -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Home")">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ubicaciones
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Ciudades")">Ciudades</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Departamentos")">Departamentos</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Barrios")">Barrios</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Comunas")">Comunas</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Votar" asp-action="Index">Votar</a>
+                            <a class="nav-link text-dark disabled" href="#" tabindex="-1" aria-disabled="true">Proyectos Sociales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Encuestas" asp-action="Index">Encuestas</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "LiderSocial")">Líder Social</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="LideresSociales" asp-action="Index">L. social</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Encuestas")">Encuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Barrios" asp-action="Index">Barrios</a>
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Votar")">Votación</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Comunas" asp-action="Index">Comunas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark nav-link-hover" asp-area="" asp-controller="Departamentos" asp-action="Index">Departamentos</a>
-                        </li>
-                       @*  <li class="nav-item text-center mt-2">
-                            <span class="nav-text">¡Únete a la comunidad!</span>
-                        </li> *@
-                        <!-- Agrega más elementos de menú si es necesario -->
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <!-- Login -->
+                    <div class="d-flex">
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
+
 
     <div class="container">
         <main role="main" class="pb-3">
