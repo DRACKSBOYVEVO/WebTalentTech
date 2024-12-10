@@ -1,0 +1,25 @@
+﻿@using Web.ViewModels
+@model IEnumerable<UserWithRolesViewModel>
+
+<h2>Lista de Usuarios</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre de Usuario</th>
+            <th>Roles</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a href="@Url.Action("EditRoles", "UserManagement", new { userId = user.UserId })" class="btn btn-primary">Editar Roles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@using Web.ViewModels
+@model EditRolesViewModel
+
+<h2>Administrar Roles para @Model.UserName</h2>
+
+<form method="post" asp-action="EditRoles">
+    <input type="hidden" asp-for="UserId" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Rol</th>
+                <th>Asignado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.Roles)
+            {
+                <tr>
+                    <td>@role.RoleName</td>
+                    <td>
+                        <input type="checkbox" asp-for="Roles[@Model.Roles.IndexOf(role)].IsSelected" />
+                        <input type="hidden" asp-for="Roles[@Model.Roles.IndexOf(role)].RoleName" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+</form>
