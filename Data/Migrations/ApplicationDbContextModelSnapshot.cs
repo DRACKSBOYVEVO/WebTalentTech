@@ -237,11 +237,14 @@ namespace Web.Data.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BarrioId");
 
                     b.HasIndex("ComunaId");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("Barrios");
                 });
@@ -259,11 +262,14 @@ namespace Web.Data.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CiudadId");
 
                     b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("Ciudades");
                 });
@@ -315,13 +321,97 @@ namespace Web.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EncuestaId"));
 
+                    b.Property<string>("Apellidos")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CorreoElectronico")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("EnfoqueDiferencialId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FormulacionPorOrganizacion")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombres")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NumeroIdentificacion")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("NumeroTelefonico")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Ocupacion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RangoEdadId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SectorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SexoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoIdentificacionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UbicacionProyectoId")
+                        .HasColumnType("int");
 
                     b.HasKey("EncuestaId");
 
+                    b.HasIndex("EnfoqueDiferencialId");
+
+                    b.HasIndex("RangoEdadId");
+
+                    b.HasIndex("SectorId");
+
+                    b.HasIndex("SexoId");
+
+                    b.HasIndex("TipoIdentificacionId");
+
+                    b.HasIndex("UbicacionProyectoId");
+
                     b.ToTable("Encuestas");
+                });
+
+            modelBuilder.Entity("Web.Models.EnfoqueDiferencial", b =>
+                {
+                    b.Property<int>("EnfoqueDiferencialId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnfoqueDiferencialId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnfoqueDiferencialId");
+
+                    b.ToTable("EnfoquesDiferenciales");
                 });
 
             modelBuilder.Entity("Web.Models.LiderSocial", b =>
@@ -388,6 +478,91 @@ namespace Web.Data.Migrations
                     b.HasIndex("PersonaId");
 
                     b.ToTable("ProyectoSociales");
+                });
+
+            modelBuilder.Entity("Web.Models.RangoEdad", b =>
+                {
+                    b.Property<int>("RangoEdadId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RangoEdadId"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RangoEdadId");
+
+                    b.ToTable("RangosEdad");
+                });
+
+            modelBuilder.Entity("Web.Models.Sector", b =>
+                {
+                    b.Property<int>("SectorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectorId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SectorId");
+
+                    b.ToTable("Sectores");
+                });
+
+            modelBuilder.Entity("Web.Models.Sexo", b =>
+                {
+                    b.Property<int>("SexoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SexoId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SexoId");
+
+                    b.ToTable("Sexos");
+                });
+
+            modelBuilder.Entity("Web.Models.TipoIdentificacion", b =>
+                {
+                    b.Property<int>("TipoIdentificacionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TipoIdentificacionId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TipoIdentificacionId");
+
+                    b.ToTable("TiposIdentificacion");
+                });
+
+            modelBuilder.Entity("Web.Models.UbicacionProyecto", b =>
+                {
+                    b.Property<int>("UbicacionProyectoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UbicacionProyectoId"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UbicacionProyectoId");
+
+                    b.ToTable("UbicacionesProyecto");
                 });
 
             modelBuilder.Entity("Web.Models.Voto", b =>
@@ -507,6 +682,57 @@ namespace Web.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Departamento");
+                });
+
+            modelBuilder.Entity("Web.Models.Encuesta", b =>
+                {
+                    b.HasOne("Web.Models.EnfoqueDiferencial", "EnfoqueDiferencial")
+                        .WithMany()
+                        .HasForeignKey("EnfoqueDiferencialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.RangoEdad", "RangoEdad")
+                        .WithMany()
+                        .HasForeignKey("RangoEdadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.Sector", "Sector")
+                        .WithMany()
+                        .HasForeignKey("SectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.Sexo", "Sexo")
+                        .WithMany()
+                        .HasForeignKey("SexoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.TipoIdentificacion", "TipoIdentificacion")
+                        .WithMany()
+                        .HasForeignKey("TipoIdentificacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Models.UbicacionProyecto", "UbicacionProyecto")
+                        .WithMany()
+                        .HasForeignKey("UbicacionProyectoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EnfoqueDiferencial");
+
+                    b.Navigation("RangoEdad");
+
+                    b.Navigation("Sector");
+
+                    b.Navigation("Sexo");
+
+                    b.Navigation("TipoIdentificacion");
+
+                    b.Navigation("UbicacionProyecto");
                 });
 
             modelBuilder.Entity("Web.Models.LiderSocial", b =>
