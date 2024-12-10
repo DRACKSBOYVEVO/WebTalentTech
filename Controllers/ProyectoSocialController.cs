@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Data;
@@ -6,8 +8,10 @@ using Web.Models;
 
 namespace Web.Controllers;
 
-public class ProyectoSocialController(ApplicationDbContext context) : Controller
+[Authorize(Roles = "Líder Social")]
+public class ProyectoSocialController(ApplicationDbContext context, UserManager<IdentityUser> userManager) : Controller
 {
+    private readonly UserManager<IdentityUser> _userManager = userManager;
     private readonly ApplicationDbContext _context = context;
 
     // GET: ProyectoSocial
@@ -52,6 +56,14 @@ public class ProyectoSocialController(ApplicationDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("ProyectoSocialId,Titulo,Descripcion,Archivo,FechaCreacion,LiderSocialId,PersonaId")] ProyectoSocial proyectoSocial)
     {
+        var user = await _userManager.GetUserAsync(User);
+        var isLiderSocial = await _userManager.IsInRoleAsync(user, "Líder Social");
+
+        if (!isLiderSocial)
+        {
+            return Forbid();
+        }
+
         if (ModelState.IsValid)
         {
             _context.Add(proyectoSocial);

@@ -29,7 +29,8 @@ public class ProyectoSocial
     public IdentityUser LiderSocial { get; set; }
     [Required]
 
-    public int PersonaId { get; set; }
+    //// Relación con IdentityUser (Líder Social)
+    public int PersonaId { get; set; } //Cambiar a UserId 
     [ForeignKey("PersonaId")]
 
     public LiderSocial Persona { get; set; } // Clave foránea hacia LiderSocial
