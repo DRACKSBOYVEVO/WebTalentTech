@@ -6,23 +6,18 @@ using Web.Models;
 
 namespace Web.Controllers;
 
-public class VotarController(ApplicationDbContext context) : Controller
+public class VotoesController(ApplicationDbContext context) : Controller
 {
     private readonly ApplicationDbContext _context = context;
 
-    /// <summary>
-    /// Obtener todos los votos de la base de datos
-    /// </summary>
-    /// <returns></returns>
+    // GET: Votoes
     public async Task<IActionResult> Index()
     {
-        var contarVotos = _context.Votos.Include(v => v.Encuesta)
-                                        .Include(v => v.LiderSocial);
-
-        return View(await contarVotos.ToListAsync());
+        var applicationDbContext = _context.Votos.Include(v => v.Encuesta).Include(v => v.LiderSocial).Include(v => v.ProyectoSocial);
+        return View(await applicationDbContext.ToListAsync());
     }
 
-    // GET: Votar/Details/5
+    // GET: Votoes/Details/5
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -33,6 +28,7 @@ public class VotarController(ApplicationDbContext context) : Controller
         var voto = await _context.Votos
             .Include(v => v.Encuesta)
             .Include(v => v.LiderSocial)
+            .Include(v => v.ProyectoSocial)
             .FirstOrDefaultAsync(m => m.VotoId == id);
         if (voto == null)
         {
@@ -42,22 +38,21 @@ public class VotarController(ApplicationDbContext context) : Controller
         return View(voto);
     }
 
-    // GET: Votar/Create
+    // GET: Votoes/Create
     public IActionResult Create()
     {
-        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Descripcion");
+        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Apellidos");
         ViewData["LiderSocialId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre");
+        ViewData["ProyectoSocialId"] = new SelectList(_context.ProyectoSociales, "ProyectoSocialId", "LiderSocialId");
         return View();
     }
 
-    /// <summary>
-    /// POST: Crear un voto en la base de datos
-    /// </summary>
-    /// <param name="voto"></param>
-    /// <returns></returns>
+    // POST: Votoes/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("VotoId,EncuestaId,LiderSocialId,FechaVoto")] Voto voto)
+    public async Task<IActionResult> Create([Bind("VotoId,EncuestaId,LiderSocialId,FechaVoto,Cedula,ProyectoSocialId")] Voto voto)
     {
         if (ModelState.IsValid)
         {
@@ -65,16 +60,13 @@ public class VotarController(ApplicationDbContext context) : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Descripcion", voto.EncuestaId);
+        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Apellidos", voto.EncuestaId);
         ViewData["LiderSocialId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", voto.LiderSocialId);
+        ViewData["ProyectoSocialId"] = new SelectList(_context.ProyectoSociales, "ProyectoSocialId", "LiderSocialId", voto.ProyectoSocialId);
         return View(voto);
     }
 
-    /// <summary>
-    /// GET: Edita un voto con Id x de la base de datos
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    // GET: Votoes/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -87,17 +79,18 @@ public class VotarController(ApplicationDbContext context) : Controller
         {
             return NotFound();
         }
-        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Descripcion", voto.EncuestaId);
+        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Apellidos", voto.EncuestaId);
         ViewData["LiderSocialId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", voto.LiderSocialId);
+        ViewData["ProyectoSocialId"] = new SelectList(_context.ProyectoSociales, "ProyectoSocialId", "LiderSocialId", voto.ProyectoSocialId);
         return View(voto);
     }
 
-    // POST: Votar/Edit/5
+    // POST: Votoes/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("VotoId,EncuestaId,LiderSocialId,FechaVoto")] Voto voto)
+    public async Task<IActionResult> Edit(int id, [Bind("VotoId,EncuestaId,LiderSocialId,FechaVoto,Cedula,ProyectoSocialId")] Voto voto)
     {
         if (id != voto.VotoId)
         {
@@ -124,12 +117,13 @@ public class VotarController(ApplicationDbContext context) : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Descripcion", voto.EncuestaId);
+        ViewData["EncuestaId"] = new SelectList(_context.Encuestas, "EncuestaId", "Apellidos", voto.EncuestaId);
         ViewData["LiderSocialId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", voto.LiderSocialId);
+        ViewData["ProyectoSocialId"] = new SelectList(_context.ProyectoSociales, "ProyectoSocialId", "LiderSocialId", voto.ProyectoSocialId);
         return View(voto);
     }
 
-    // GET: Votar/Delete/5
+    // GET: Votoes/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -140,6 +134,7 @@ public class VotarController(ApplicationDbContext context) : Controller
         var voto = await _context.Votos
             .Include(v => v.Encuesta)
             .Include(v => v.LiderSocial)
+            .Include(v => v.ProyectoSocial)
             .FirstOrDefaultAsync(m => m.VotoId == id);
         if (voto == null)
         {
@@ -149,7 +144,7 @@ public class VotarController(ApplicationDbContext context) : Controller
         return View(voto);
     }
 
-    // POST: Votar/Delete/5
+    // POST: Votoes/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
