@@ -1,18 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Data;
 using Web.Models;
 
 namespace Web.Controllers;
 
-public class EncuestasController(ApplicationDbContext context) : Controller
+public class EncuestasController : Controller
 {
-    private readonly ApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context;
+
+    public EncuestasController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
 
     // GET: Encuestas
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Encuestas.ToListAsync());
+        var applicationDbContext = _context.Encuestas
+                                                    .Include(e => e.EnfoqueDiferencial)
+                                                    .Include(e => e.RangoEdad)
+                                                    .Include(e => e.Sector)
+                                                    .Include(e => e.Sexo)
+                                                    .Include(e => e.TipoIdentificacion)
+                                                    .Include(e => e.UbicacionProyecto);
+        return View(await applicationDbContext.ToListAsync());
     }
 
     // GET: Encuestas/Details/5
@@ -24,6 +37,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
         }
 
         var encuesta = await _context.Encuestas
+            .Include(e => e.EnfoqueDiferencial)
+            .Include(e => e.RangoEdad)
+            .Include(e => e.Sector)
+            .Include(e => e.Sexo)
+            .Include(e => e.TipoIdentificacion)
+            .Include(e => e.UbicacionProyecto)
             .FirstOrDefaultAsync(m => m.EncuestaId == id);
         if (encuesta == null)
         {
@@ -36,6 +55,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
     // GET: Encuestas/Create
     public IActionResult Create()
     {
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId");
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId");
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId");
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId");
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId");
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId");
         return View();
     }
 
@@ -44,7 +69,7 @@ public class EncuestasController(ApplicationDbContext context) : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("EncuestaId,Descripcion")] Encuesta encuesta)
+    public async Task<IActionResult> Create([Bind("EncuestaId,Descripcion,FechaCreacion,Nombres,Apellidos,TipoIdentificacionId,NumeroIdentificacion,Ocupacion,SexoId,RangoEdadId,EnfoqueDiferencialId,CorreoElectronico,NumeroTelefonico,FormulacionPorOrganizacion,SectorId,UbicacionProyectoId")] Encuesta encuesta)
     {
         if (ModelState.IsValid)
         {
@@ -52,6 +77,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 
@@ -68,6 +99,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
         {
             return NotFound();
         }
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 
@@ -76,7 +113,7 @@ public class EncuestasController(ApplicationDbContext context) : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("EncuestaId,Descripcion")] Encuesta encuesta)
+    public async Task<IActionResult> Edit(int id, [Bind("EncuestaId,Descripcion,FechaCreacion,Nombres,Apellidos,TipoIdentificacionId,NumeroIdentificacion,Ocupacion,SexoId,RangoEdadId,EnfoqueDiferencialId,CorreoElectronico,NumeroTelefonico,FormulacionPorOrganizacion,SectorId,UbicacionProyectoId")] Encuesta encuesta)
     {
         if (id != encuesta.EncuestaId)
         {
@@ -103,6 +140,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 
@@ -115,6 +158,12 @@ public class EncuestasController(ApplicationDbContext context) : Controller
         }
 
         var encuesta = await _context.Encuestas
+            .Include(e => e.EnfoqueDiferencial)
+            .Include(e => e.RangoEdad)
+            .Include(e => e.Sector)
+            .Include(e => e.Sexo)
+            .Include(e => e.TipoIdentificacion)
+            .Include(e => e.UbicacionProyecto)
             .FirstOrDefaultAsync(m => m.EncuestaId == id);
         if (encuesta == null)
         {

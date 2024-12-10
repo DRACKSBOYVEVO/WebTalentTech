@@ -19,6 +19,70 @@
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="FechaCreacion" class="control-label"></label>
+                <input asp-for="FechaCreacion" class="form-control" />
+                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombres" class="control-label"></label>
+                <input asp-for="Nombres" class="form-control" />
+                <span asp-validation-for="Nombres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellidos" class="control-label"></label>
+                <input asp-for="Apellidos" class="form-control" />
+                <span asp-validation-for="Apellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoIdentificacionId" class="control-label"></label>
+                <select asp-for="TipoIdentificacionId" class ="form-control" asp-items="ViewBag.TipoIdentificacionId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroIdentificacion" class="control-label"></label>
+                <input asp-for="NumeroIdentificacion" class="form-control" />
+                <span asp-validation-for="NumeroIdentificacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ocupacion" class="control-label"></label>
+                <input asp-for="Ocupacion" class="form-control" />
+                <span asp-validation-for="Ocupacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SexoId" class="control-label"></label>
+                <select asp-for="SexoId" class ="form-control" asp-items="ViewBag.SexoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RangoEdadId" class="control-label"></label>
+                <select asp-for="RangoEdadId" class ="form-control" asp-items="ViewBag.RangoEdadId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnfoqueDiferencialId" class="control-label"></label>
+                <select asp-for="EnfoqueDiferencialId" class ="form-control" asp-items="ViewBag.EnfoqueDiferencialId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorreoElectronico" class="control-label"></label>
+                <input asp-for="CorreoElectronico" class="form-control" />
+                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroTelefonico" class="control-label"></label>
+                <input asp-for="NumeroTelefonico" class="form-control" />
+                <span asp-validation-for="NumeroTelefonico" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FormulacionPorOrganizacion" /> @Html.DisplayNameFor(model => model.FormulacionPorOrganizacion)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectorId" class="control-label"></label>
+                <select asp-for="SectorId" class ="form-control" asp-items="ViewBag.SectorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UbicacionProyectoId" class="control-label"></label>
+                <select asp-for="UbicacionProyectoId" class ="form-control" asp-items="ViewBag.UbicacionProyectoId"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
