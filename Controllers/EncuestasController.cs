@@ -59,7 +59,7 @@ public class EncuestasController : Controller
         ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId");
         ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId");
         ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId");
-        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId");
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre");
         ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId");
         return View();
     }
@@ -81,7 +81,7 @@ public class EncuestasController : Controller
         ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
         ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
         ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
-        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
         ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
@@ -103,7 +103,7 @@ public class EncuestasController : Controller
         ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
         ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
         ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
-        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
         ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
@@ -144,7 +144,7 @@ public class EncuestasController : Controller
         ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
         ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
         ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
-        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "TipoIdentificacionId", "TipoIdentificacionId", encuesta.TipoIdentificacionId);
+        ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
         ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
