@@ -6,7 +6,7 @@ using Web.Models;
 
 namespace Web.Controllers;
 
-public class VotoesController(ApplicationDbContext context) : Controller
+public class VotosController(ApplicationDbContext context) : Controller
 {
     private readonly ApplicationDbContext _context = context;
 
