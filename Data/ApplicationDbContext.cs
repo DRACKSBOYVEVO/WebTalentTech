@@ -46,6 +46,12 @@ namespace Web.Data
             modelBuilder.Entity<Barrio>()
                 .HasIndex(b => b.Nombre)
                 .IsUnique();
+
+            // Relación entre ProyectoSocial y IdentityUser
+            modelBuilder.Entity<ProyectoSocial>()
+                .HasOne(p => p.LiderSocial)
+                .WithMany()
+                .HasForeignKey(p => p.PersonaId);
         }
     }
 }
