@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
+﻿@inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 <style>
@@ -29,10 +28,14 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark btn-register" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
+        <a class="nav-link text-dark btn-register" asp-area="Identity" asp-page="/Account/Register">
+            <i class="bi bi-person-plus ml-2"></i>Registrar
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Ingresar</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">
+            <i class="bi bi-box-arrow-in-right ml-2"></i>Ingresar
+        </a>
     </li>
 }
 </ul>
