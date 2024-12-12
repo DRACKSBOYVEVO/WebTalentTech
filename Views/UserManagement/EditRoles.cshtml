@@ -1,29 +1,117 @@
-﻿@using Web.ViewModels
-@model EditRolesViewModel
+﻿@model EditRolesViewModel
 
-<h2>Administrar Roles para @Model.UserName</h2>
+@{
+    ViewData["Title"] = "Gestion roles: Editar rol seleccionado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<form method="post" asp-action="EditRoles">
-    <input type="hidden" asp-for="UserId" />
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Rol</th>
-                <th>Asignado</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var role in Model.Roles)
-            {
-                <tr>
-                    <td>@role.RoleName</td>
-                    <td>
-                        <input type="checkbox" asp-for="Roles[@Model.Roles.IndexOf(role)].IsSelected" />
-                        <input type="hidden" asp-for="Roles[@Model.Roles.IndexOf(role)].RoleName" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-</form>
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <!-- Sección superior -->
+            <div class="text-center mb-4">
+                <h2 class="text-center">Administrar Roles</h2>
+                <p class="text-center text-muted">Administra los permisos y características de <strong>@Model.UserName</strong></p>
+            </div>
+
+            <!-- Formulario principal -->
+            <form class="row g-3" method="post" asp-action="EditRoles">
+                <input type="hidden" asp-for="UserId" />
+
+                <!-- Nombre del rol -->
+                @* <div class="col-12 col-md-6">
+                    <label for="RoleName" class="form-label">Nombre del rol</label>
+                    <input type="text" class="form-control" id="RoleName" name="RoleName" value="@Model.RoleName" required>
+                </div>
+
+                <!-- Descripción del rol -->
+                <div class="col-12">
+                    <label for="RoleDescription" class="form-label">Descripción del rol</label>
+                    <textarea class="form-control" id="RoleDescription" name="RoleDescription" rows="3">@Model.RoleDescription</textarea>
+                </div> *@
+
+                <!-- Lista de permisos -->
+                @* <div class="col-12">
+                    <h4 class="h5 mt-4">Permisos</h4>
+                    <div class="row">
+                        @foreach (var category in Model.PermissionCategories)
+                        {
+                            <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>@category.Name</strong>
+                                        <div class="form-check form-check-inline float-end">
+                                            <input class="form-check-input" type="checkbox" id="selectAll-@category.Id" onclick="toggleCategory('@category.Id')">
+                                            <label class="form-check-label" for="selectAll-@category.Id">Seleccionar todos</label>
+                                        </div>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var permission in category.Permissions)
+                                        {
+                                            <li class="list-group-item">
+                                                <div class="form-check">
+                                                    <input class="form-check-input category-@category.Id" type="checkbox" id="perm-@permission.Id" name="SelectedPermissions" value="@permission.Id" @(permission.IsSelected ? "checked" : "")>
+                                                    <label class="form-check-label" for="perm-@permission.Id">@permission.Name</label>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div> *@
+
+                <!-- Mensajes dinámicos -->
+                @* <div class="col-12">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger">@Model.ErrorMessage</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+                    {
+                        <div class="alert alert-success">@Model.SuccessMessage</div>
+                    }
+                </div> *@
+
+                <!-- Campos del Formulario -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Roles Disponibles</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var role in Model.Roles)
+                            {
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" 
+                                               type="checkbox" 
+                                               asp-for="Roles[@Model.Roles.IndexOf(role)].IsSelected" />
+                                        <label class="form-check-label">
+                                            @role.RoleName
+                                        </label>
+                                        <input type="hidden" asp-for="Roles[@Model.Roles.IndexOf(role)].RoleName" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCategory(categoryId) {
+        const checkboxes = document.querySelectorAll(`.category-${categoryId}`);
+        const selectAll = document.getElementById(`selectAll-${categoryId}`).checked;
+        checkboxes.forEach(checkbox => checkbox.checked = selectAll);
+    }
+</script>
