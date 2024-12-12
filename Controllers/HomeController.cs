@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Web.Models;
+using TuVozLocal.DataAccess.Entities;
 
 namespace Web.Controllers
 {

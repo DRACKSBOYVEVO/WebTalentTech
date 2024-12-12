@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
-using Web.Models;
+using TuVozLocal.DataAccess.Context;
+using TuVozLocal.DataAccess.Entities;
 
 namespace Web.Controllers;
 
-[Authorize(Roles = "Líder Social")]
+//[Authorize(Roles = "Administrador, Líder Social")]
 public class ProyectoSocialController(ApplicationDbContext context, UserManager<IdentityUser> userManager) : Controller
 {
     private readonly UserManager<IdentityUser> _userManager = userManager;
@@ -44,8 +43,8 @@ public class ProyectoSocialController(ApplicationDbContext context, UserManager<
     // GET: ProyectoSocial/Create
     public IActionResult Create()
     {
-        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Id", "Id");
-        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre");
+        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Nombre", "Nombre");
+        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "Nombre", "Nombre");
         return View();
     }
 
@@ -70,8 +69,8 @@ public class ProyectoSocialController(ApplicationDbContext context, UserManager<
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Id", "Id", proyectoSocial.LiderSocialId);
-        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", proyectoSocial.PersonaId);
+        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Nombre", "Nombre", proyectoSocial.LiderSocialId);
+        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "LiderSocialId", proyectoSocial.PersonaId);
         return View(proyectoSocial);
     }
 
@@ -88,8 +87,8 @@ public class ProyectoSocialController(ApplicationDbContext context, UserManager<
         {
             return NotFound();
         }
-        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Id", "Id", proyectoSocial.LiderSocialId);
-        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", proyectoSocial.PersonaId);
+        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Nombre", "Nombre", proyectoSocial.LiderSocialId);
+        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "LiderSocialId", proyectoSocial.PersonaId);
         return View(proyectoSocial);
     }
 
@@ -125,8 +124,8 @@ public class ProyectoSocialController(ApplicationDbContext context, UserManager<
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Id", "Id", proyectoSocial.LiderSocialId);
-        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "Nombre", proyectoSocial.PersonaId);
+        ViewData["LiderSocialId"] = new SelectList(_context.Users, "Nombre", "Nombre", proyectoSocial.LiderSocialId);
+        ViewData["PersonaId"] = new SelectList(_context.LiderSocials, "LiderSocialId", "LiderSocialId", proyectoSocial.PersonaId);
         return View(proyectoSocial);
     }
 

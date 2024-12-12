@@ -1,19 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
-using Web.Models;
+using TuVozLocal.DataAccess.Context;
+using TuVozLocal.DataAccess.Entities;
 
 namespace Web.Controllers;
 
-public class EncuestasController : Controller
+public class EncuestasController(ApplicationDbContext context) : Controller
 {
-    private readonly ApplicationDbContext _context;
-
-    public EncuestasController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly ApplicationDbContext _context = context;
 
     // GET: Encuestas
     public async Task<IActionResult> Index()
@@ -55,12 +50,12 @@ public class EncuestasController : Controller
     // GET: Encuestas/Create
     public IActionResult Create()
     {
-        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId");
-        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId");
-        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId");
-        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId");
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "Nombre", "Nombre");
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "Descripcion", "Descripcion");
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "Nombre", "Nombre");
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "Nombre", "Nombre");
         ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre");
-        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId");
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "Nombre", "Nombre");
         return View();
     }
 
@@ -77,12 +72,12 @@ public class EncuestasController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
-        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
-        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
-        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "Nombre", "Nombre", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "Descripcion", "Descripcion", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "Nombre", "Nombre", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "Nombre", "Nombre", encuesta.SexoId);
         ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
-        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "Nombre", "Nombre", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 
@@ -99,12 +94,12 @@ public class EncuestasController : Controller
         {
             return NotFound();
         }
-        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
-        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
-        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
-        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "Nombre", "Nombre", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "Descripcion", "Descripcion", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "Nombre", "Nombre", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "Nombre", "Nombre", encuesta.SexoId);
         ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
-        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "Nombre", "Nombre", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 
@@ -140,12 +135,12 @@ public class EncuestasController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "EnfoqueDiferencialId", "EnfoqueDiferencialId", encuesta.EnfoqueDiferencialId);
-        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "RangoEdadId", "RangoEdadId", encuesta.RangoEdadId);
-        ViewData["SectorId"] = new SelectList(_context.Sectores, "SectorId", "SectorId", encuesta.SectorId);
-        ViewData["SexoId"] = new SelectList(_context.Sexos, "SexoId", "SexoId", encuesta.SexoId);
+        ViewData["EnfoqueDiferencialId"] = new SelectList(_context.EnfoquesDiferenciales, "Nombre", "Nombre", encuesta.EnfoqueDiferencialId);
+        ViewData["RangoEdadId"] = new SelectList(_context.RangosEdad, "Descripcion", "Descripcion", encuesta.RangoEdadId);
+        ViewData["SectorId"] = new SelectList(_context.Sectores, "Nombre", "Nombre", encuesta.SectorId);
+        ViewData["SexoId"] = new SelectList(_context.Sexos, "Nombre", "Nombre", encuesta.SexoId);
         ViewData["TipoIdentificacionId"] = new SelectList(_context.TiposIdentificacion, "Nombre", "Nombre", encuesta.TipoIdentificacionId);
-        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "UbicacionProyectoId", "UbicacionProyectoId", encuesta.UbicacionProyectoId);
+        ViewData["UbicacionProyectoId"] = new SelectList(_context.UbicacionesProyecto, "Nombre", "Nombre", encuesta.UbicacionProyectoId);
         return View(encuesta);
     }
 

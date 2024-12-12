@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
-using Web.Models;
+using TuVozLocal.DataAccess.Context;
+using TuVozLocal.DataAccess.Entities;
 
 namespace Web.Controllers;
 
