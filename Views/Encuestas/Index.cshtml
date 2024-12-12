@@ -1,120 +1,55 @@
-﻿@model IEnumerable<Web.Models.Encuesta>
+﻿@model IEnumerable<Encuesta>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Encuestas: Encuestas disponibles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="text-center mt-4">Encuestas disponibles</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoIdentificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroIdentificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ocupacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sexo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RangoEdad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnfoqueDiferencial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CorreoElectronico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroTelefonico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormulacionPorOrganizacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sector)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UbicacionProyecto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoIdentificacion.TipoIdentificacionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroIdentificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ocupacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sexo.SexoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RangoEdad.RangoEdadId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnfoqueDiferencial.EnfoqueDiferencialId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CorreoElectronico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroTelefonico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormulacionPorOrganizacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sector.SectorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UbicacionProyecto.UbicacionProyectoId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EncuestaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EncuestaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EncuestaId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="text-md-center">Listado de encuestas registradas.</p>
+        <a asp-action="Create" class="btn btn-sm btn-primary"><i class="bi bi-clipboard2-plus mr-2"></i> Nueva Encuesta</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Nombres)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Apellidos)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Sector)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.UbicacionProyecto)</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nombres)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Apellidos)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sector.SectorId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UbicacionProyecto.UbicacionProyectoId)</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.EncuestaId" class="btn btn-sm btn-warning" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.EncuestaId" class="btn btn-sm btn-info" title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.EncuestaId" class="btn btn-sm btn-danger" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

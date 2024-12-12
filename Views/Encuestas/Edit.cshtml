@@ -1,103 +1,131 @@
-﻿@model Web.Models.Encuesta
+﻿@model Encuesta
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Encuestas: Editar encuesta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Encuesta</h4>
+<h1 class="text-center mt-4">Registrar Encuesta de Proyectos Comunitarios</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EncuestaId" />
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+
+<div class="container">
+    <form asp-action="Edit" class="row g-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="EncuestaId" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="card-title">Información Personal</h5>
+                            <div class="form-group">
+                                <label asp-for="Nombres" class="control-label fw-bold">Nombres <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="Nombres" class="form-control" placeholder="Escribe tu(s) nombre(s) completo(s)" aria-describedby="nombresHelp" alt="Campo para los nombres del participante" />
+                                <small id="nombresHelp" class="form-text text-muted">Ejemplo: Juan Carlos</small>
+                                <span asp-validation-for="Nombres" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="Apellidos" class="control-label fw-bold">Apellidos <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="Apellidos" class="form-control" placeholder="Escribe tu(s) apellido(s)" alt="Campo para los apellidos del participante" />
+                                <span asp-validation-for="Apellidos" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="TipoIdentificacionId" class="control-label fw-bold">Tipo de Identificación <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <select asp-for="TipoIdentificacionId" class="form-control" asp-items="ViewBag.TipoIdentificacionId" aria-label="Selecciona el tipo de identificación" alt="Lista de tipos de identificación disponibles"></select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="NumeroIdentificacion" class="control-label fw-bold">Número de Identificación <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="NumeroIdentificacion" class="form-control" placeholder="Ingresa tu número de documento" alt="Campo para el número de identificación del participante" />
+                                <span asp-validation-for="NumeroIdentificacion" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title">Información de la Encuesta</h5>
+                            <div class="form-group">
+                                <label asp-for="Descripcion" class="control-label fw-bold">Descripción <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="Descripcion" class="form-control" placeholder="Describe brevemente el proyecto" alt="Campo para describir el proyecto" />
+                                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="FechaCreacion" class="control-label fw-bold">Fecha de Creación <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="FechaCreacion" class="form-control" type="date" alt="Campo para seleccionar la fecha de creación del proyecto" />
+                                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="Ocupacion" class="control-label fw-bold">Ocupación <span class="text-danger fw-bold mr-2" alt="Este campo es requerido">*</span></label>
+                                <input asp-for="Ocupacion" class="form-control" placeholder="Especifica tu ocupación o profesión" alt="Campo para la ocupación del participante" />
+                                <span asp-validation-for="Ocupacion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="SectorId" class="control-label fw-bold"></label>
+                                <select asp-for="SectorId" class="form-control" asp-items="ViewBag.SectorId"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mt-4">
+                            <h5 class="card-title">Datos Adicionales</h5>
+                            <div class="form-group">
+                                <label asp-for="CorreoElectronico" class="control-label fw-bold">Correo Electrónico</label>
+                                <input asp-for="CorreoElectronico" class="form-control" placeholder="Ingresa tu correo electrónico" alt="Campo para ingresar el correo electrónico" />
+                                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="NumeroTelefonico" class="control-label fw-bold">Número Telefónico</label>
+                                <input asp-for="NumeroTelefonico" class="form-control" placeholder="Escribe tu número de contacto" alt="Campo para el número telefónico" />
+                                <span asp-validation-for="NumeroTelefonico" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="SexoId" class="control-label fw-bold"></label>
+                                <select asp-for="SexoId" class="form-control" asp-items="ViewBag.SexoId"></select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="RangoEdadId" class="control-label fw-bold"></label>
+                                <select asp-for="RangoEdadId" class="form-control" asp-items="ViewBag.RangoEdadId"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title">Información del Proyecto</h5>
+                            <div class="form-group mt-3">
+                                <label for="IdeasProyectoId" class="control-label fw-bold">
+                                    <span class="text-danger fw-bold">*</span> Referencia a Ideas del Plan de Desarrollo
+                                </label>
+                                <textarea class="form-control" id="IdeasProyectoId" rows="3" placeholder="Describe las ideas relacionadas al plan de desarrollo local" alt="Área de texto para describir las ideas del proyecto"></textarea>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="inputRadio" class="control-label fw-bold">¿Este proyecto es formulado por una organización?</label>
+                                <div class="form-check">
+                                    <input type="radio" id="inputRadioSi" name="inputRadio" value="si" class="form-check-input" alt="Opción para indicar que sí es formulado por una organización" />
+                                    <label for="inputRadioSi" class="form-check-label">Sí</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="inputRadioNo" name="inputRadio" value="no" class="form-check-input" alt="Opción para indicar que no es formulado por una organización" />
+                                    <label for="inputRadioNo" class="form-check-label">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="EnfoqueDiferencialId" class="control-label fw-bold"></label>
+                                <select asp-for="EnfoqueDiferencialId" class="form-control" asp-items="ViewBag.EnfoqueDiferencialId"></select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="UbicacionProyectoId" class="control-label fw-bold"></label>
+                                <select asp-for="UbicacionProyectoId" class="form-control" asp-items="ViewBag.UbicacionProyectoId"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
-                <input asp-for="FechaCreacion" class="form-control" />
-                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nombres" class="control-label"></label>
-                <input asp-for="Nombres" class="form-control" />
-                <span asp-validation-for="Nombres" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Apellidos" class="control-label"></label>
-                <input asp-for="Apellidos" class="form-control" />
-                <span asp-validation-for="Apellidos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoIdentificacionId" class="control-label"></label>
-                <select asp-for="TipoIdentificacionId" class="form-control" asp-items="ViewBag.TipoIdentificacionId"></select>
-                <span asp-validation-for="TipoIdentificacionId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroIdentificacion" class="control-label"></label>
-                <input asp-for="NumeroIdentificacion" class="form-control" />
-                <span asp-validation-for="NumeroIdentificacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ocupacion" class="control-label"></label>
-                <input asp-for="Ocupacion" class="form-control" />
-                <span asp-validation-for="Ocupacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SexoId" class="control-label"></label>
-                <select asp-for="SexoId" class="form-control" asp-items="ViewBag.SexoId"></select>
-                <span asp-validation-for="SexoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RangoEdadId" class="control-label"></label>
-                <select asp-for="RangoEdadId" class="form-control" asp-items="ViewBag.RangoEdadId"></select>
-                <span asp-validation-for="RangoEdadId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EnfoqueDiferencialId" class="control-label"></label>
-                <select asp-for="EnfoqueDiferencialId" class="form-control" asp-items="ViewBag.EnfoqueDiferencialId"></select>
-                <span asp-validation-for="EnfoqueDiferencialId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CorreoElectronico" class="control-label"></label>
-                <input asp-for="CorreoElectronico" class="form-control" />
-                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroTelefonico" class="control-label"></label>
-                <input asp-for="NumeroTelefonico" class="form-control" />
-                <span asp-validation-for="NumeroTelefonico" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FormulacionPorOrganizacion" /> @Html.DisplayNameFor(model => model.FormulacionPorOrganizacion)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="SectorId" class="control-label"></label>
-                <select asp-for="SectorId" class="form-control" asp-items="ViewBag.SectorId"></select>
-                <span asp-validation-for="SectorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UbicacionProyectoId" class="control-label"></label>
-                <select asp-for="UbicacionProyectoId" class="form-control" asp-items="ViewBag.UbicacionProyectoId"></select>
-                <span asp-validation-for="UbicacionProyectoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success w-50">Registrar Encuesta</button>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
 </div>
 
 @section Scripts {
