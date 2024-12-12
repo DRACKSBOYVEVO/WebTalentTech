@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Web.ViewModels;
+using TuVozLocal.DataAccess.ViewModels;
 
 namespace Web.Controllers;
 
+[Authorize(Roles = "Administrador")]
 public class UserManagementController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) : Controller
 {
     private readonly UserManager<IdentityUser> _userManager = userManager;
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
-    // Action para listar usuarios
+    /// <summary>
+    /// Action para listar usuarios
+    /// </summary>
+    /// <returns></returns>
     public async Task<IActionResult> Index()
     {
         var users = _userManager.Users.ToList();
@@ -29,7 +34,59 @@ public class UserManagementController(UserManager<IdentityUser> userManager, Rol
         return View(userRoles);
     }
 
-    // Acción para actualizar roles de un usuario
+    /// <summary>
+    /// GET: UserManagement/Create
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult CreateRole()
+    {
+        return View();
+    }
+
+    /// <summary>
+    /// POST: UserManagement/Create
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            // Crear una instancia del rol
+            var role = new IdentityRole
+            {
+                Name = model.RoleName,
+                NormalizedName = model.RoleName.ToUpper()
+            };
+
+            // Intentar agregar el rol al sistema
+            var result = await _roleManager.CreateAsync(role);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "El rol ha sido creado exitosamente.";
+                return RedirectToAction("Index"); // O cualquier otra acción que liste roles
+            }
+
+            // Manejo de errores
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        // Si algo falla, retornar el modelo a la vista con errores
+        return View(model);
+    }
+
+    /// <summary>
+    /// Acción para actualizar roles de un usuario
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
     public async Task<IActionResult> EditRoles(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
