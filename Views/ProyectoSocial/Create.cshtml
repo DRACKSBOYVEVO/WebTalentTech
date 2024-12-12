@@ -1,56 +1,72 @@
-﻿@model Web.Models.ProyectoSocial
+﻿@model ProyectoSocial
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Proyectos Sociales: Listado de proyectos disponibles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Crear Proyecto Social</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" role="alert"></div>
 
-<h4>ProyectoSocial</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Archivo" class="control-label"></label>
-                <input asp-for="Archivo" class="form-control" />
-                <span asp-validation-for="Archivo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
-                <input asp-for="FechaCreacion" class="form-control" />
-                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LiderSocialId" class="control-label"></label>
-                <select asp-for="LiderSocialId" class ="form-control" asp-items="ViewBag.LiderSocialId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonaId" class="control-label"></label>
-                <select asp-for="PersonaId" class ="form-control" asp-items="ViewBag.PersonaId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="Titulo" class="form-label fw-bold">Título del Proyecto</label>
+                    <input asp-for="Titulo" class="form-control" placeholder="Ingrese el título del proyecto" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Descripcion" class="form-label fw-bold">Descripción</label>
+                    <textarea asp-for="Descripcion" class="form-control" rows="4" placeholder="Describa brevemente el proyecto"></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Archivo" class="form-label fw-bold">Archivo Adjunto</label>
+                    <input asp-for="Archivo" type="file" class="form-control" />
+                    <span asp-validation-for="Archivo" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FechaCreacion" class="form-label fw-bold">Fecha de Creación</label>
+                    <input asp-for="FechaCreacion" type="date" class="form-control" />
+                    <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LiderSocialId" class="form-label fw-bold">Líder Social</label>
+                    <select asp-for="LiderSocialId" class="form-select" asp-items="ViewBag.LiderSocialId">
+                        <option value="">Seleccione un líder social</option>
+                    </select>
+                    <span asp-validation-for="LiderSocialId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PersonaId" class="form-label fw-bold">Persona Responsable</label>
+                    <select asp-for="PersonaId" class="form-select" asp-items="ViewBag.PersonaId">
+                        <option value="">Seleccione una persona</option>
+                    </select>
+                    <span asp-validation-for="PersonaId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle me-2"></i>Guardar Proyecto
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Volver a la lista
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

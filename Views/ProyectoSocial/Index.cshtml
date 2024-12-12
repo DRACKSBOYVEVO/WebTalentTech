@@ -1,66 +1,55 @@
-﻿@model IEnumerable<Web.Models.ProyectoSocial>
+﻿@model IEnumerable<ProyectoSocial>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Proyectos Sociales: Listado de proyectos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="text-center mt-4">Proyectos disponibles</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Archivo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LiderSocial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Persona)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Archivo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LiderSocial.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Persona.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProyectoSocialId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProyectoSocialId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProyectoSocialId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="text-md-center">Listado de proyectos registrados.</p>
+        <a asp-action="Create" class="btn btn-sm btn-primary"><i class="bi bi-clipboard2-plus mr-2"></i> Nuevo Proyecto</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Titulo)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Archivo)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.LiderSocial)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Persona)</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Archivo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LiderSocial.UserName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Persona.Nombre)</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.ProyectoSocialId" class="btn btn-sm btn-warning" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.ProyectoSocialId" class="btn btn-sm btn-info" title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.ProyectoSocialId" class="btn btn-sm btn-danger" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
